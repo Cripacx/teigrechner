@@ -1,17 +1,35 @@
 ---
+import PizzaCalculator from '../components/PizzaCalculator.vue';
+import '../styles/global.css';
 
+const title = 'TeigRechner | Pizza-Teig- und Sauce-Rechner';
+const description = 'Moderner Pizza-Teig- und Sauce-Rechner für Astro, Vue 3, TypeScript und Tailwind CSS.';
+const faviconPath = `${import.meta.env.BASE_URL}favicon.svg`;
+const faviconIcoPath = `${import.meta.env.BASE_URL}favicon.ico`;
 ---
 
-<html lang="en">
+<html lang="de">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href={faviconPath} />
+		<link rel="icon" href={faviconIcoPath} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#fafaf9" />
+		<meta property="og:title" content="TeigRechner" />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<title>{title}</title>
+		<script is:inline>
+			const theme = localStorage.getItem('theme');
+			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const useDark = theme ? theme === 'dark' : prefersDark;
+			document.documentElement.classList.toggle('dark', useDark);
+			document.documentElement.style.colorScheme = useDark ? 'dark' : 'light';
+		</script>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="antialiased">
+		<PizzaCalculator client:load />
 	</body>
 </html>

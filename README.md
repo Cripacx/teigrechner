@@ -1,43 +1,109 @@
-# Astro Starter Kit: Minimal
+# TeigRechner
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Moderner Pizza-Teig- und Sauce-Rechner für GitHub Pages. Die App läuft komplett statisch: alle Mengen werden lokal im Browser anhand der gewünschten Teiganzahl skaliert.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- Astro
+- Vue 3 Composition API
+- TypeScript
+- Tailwind CSS
+- GitHub Pages
 
-Inside of your Astro project, you'll see the following folders and files:
+## Features
+
+- Skalierung aller Zutaten auf Basis von 6 Teigen
+- Kartenlayout für Teig und Sauce
+- Presets fuer 6, 12, 18 und 24 Teige
+- Sauber formatierte Zahlen mit deutschen Trennzeichen
+- Responsive App-UI mit Dark Mode
+- Keine Backend-Abhängigkeit
+
+## Projektstruktur
 
 ```text
-/
+.
+├── .github/workflows/deploy.yml
 ├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/
+│   │   ├── CountSelector.vue
+│   │   ├── PizzaCalculator.vue
+│   │   ├── RecipeCard.vue
+│   │   └── ThemeToggle.vue
+│   ├── data/
+│   │   └── recipes.ts
+│   ├── pages/
+│   │   └── index.astro
+│   ├── styles/
+│   │   └── global.css
+│   └── utils/
+│       └── format.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Berechnung
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Alle Zutaten basieren auf dem Rezept fuer 6 Teige.
 
-Any static assets, like images, can be placed in the `public/` directory.
+```ts
+factor = gewünschteTeige / 6;
+skalierteMenge = basisMenge * factor;
+```
 
-## 🧞 Commands
+Beispiele:
 
-All commands are run from the root of the project, from a terminal:
+- 12 Teige: Faktor 2
+- 3 Teige: Faktor 0,5
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## Lokal starten
 
-## 👀 Want to learn more?
+```sh
+pnpm install
+pnpm dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Der Entwicklungsserver läuft standardmäßig unter `http://localhost:4321`.
+
+## Build prüfen
+
+```sh
+pnpm build
+pnpm preview
+```
+
+Der statische Build landet in `dist/`.
+
+## Deployment auf GitHub Pages
+
+Das Repository enthaelt bereits den Workflow `.github/workflows/deploy.yml`.
+
+1. Code in ein GitHub-Repository pushen, idealerweise auf den Branch `main`.
+2. In GitHub unter `Settings` > `Pages` als Source `GitHub Actions` auswählen.
+3. Den Workflow `Deploy to GitHub Pages` ausführen lassen oder manuell über `Actions` starten.
+4. Nach erfolgreichem Deploy ist die Website unter der Pages-URL verfuegbar.
+
+Die Astro-Konfiguration erkennt GitHub Actions automatisch und setzt den korrekten `base`-Pfad für Projektseiten, z. B. `/TeigRechner`.
+
+## Rezeptbasis
+
+Teig fuer 6 Teige:
+
+- 1000 g Mehl
+- 25 g feines Meersalz
+- 650 ml Wasser
+- 1 g frische Hefe
+- 0,33 g Trockenhefe als Alternative
+
+Sauce fuer 6 Teige:
+
+- 1 Knoblauchzehe
+- 1 Zwiebel
+- 15 g Olivenöl
+- 400 g passierte Tomaten
+- 30 g Tomatenmark, 3-fach konzentriert
+- 1 TL Salz
+- 1 TL Zucker
+- 1 EL Pizzagewürz
