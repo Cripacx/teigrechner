@@ -24,7 +24,9 @@ const flourAmount = computed(() => formatAmount(1000 * factor.value));
 const waterAmount = computed(() => formatAmount(650 * factor.value));
 const freshYeastAmount = computed(() => formatAmount(1 * factor.value, 2));
 const totalDoughWeight = computed(() => formatAmount(targetTotalDoughWeight.value));
-const basePath = import.meta.env.BASE_URL;
+const basePath = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 const logoPath = `${basePath}logo.png`;
 
 function applyTheme(value: boolean): void {
