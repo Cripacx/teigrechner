@@ -60,7 +60,7 @@ function onWeightInput(event: Event): void {
           <label class="text-sm font-bold text-stone-700 dark:text-stone-200" for="dough-count">Anzahl Teige</label>
           <input
             id="dough-count"
-            class="h-14 w-full rounded-lg border border-stone-200 bg-stone-50 px-5 text-lg font-semibold text-stone-950 outline-none transition duration-300 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-300/25 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300 dark:focus:bg-black/30"
+            class="h-14 w-full rounded-lg border border-stone-200 bg-stone-50 px-5 text-lg font-semibold text-stone-950 outline-none transition duration-300 focus:border-amber-400 focus:ring-4 focus:ring-amber-300/25 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300 dark:focus:bg-black/30"
             inputmode="numeric"
             max="96"
             min="1"
@@ -90,7 +90,7 @@ function onWeightInput(event: Event): void {
           <label class="text-sm font-bold text-stone-700 dark:text-stone-200" for="dough-weight">Gramm pro Teigling</label>
           <input
             id="dough-weight"
-            class="h-14 w-full rounded-lg border border-stone-200 bg-stone-50 px-5 text-lg font-semibold text-stone-950 outline-none transition duration-300 focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-300/25 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300 dark:focus:bg-black/30"
+            class="h-14 w-full rounded-lg border border-stone-200 bg-stone-50 px-5 text-lg font-semibold text-stone-950 outline-none transition duration-300 focus:border-amber-400 focus:ring-4 focus:ring-amber-300/25 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-amber-300 dark:focus:bg-black/30"
             inputmode="numeric"
             max="500"
             min="120"
