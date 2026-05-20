@@ -1,4 +1,6 @@
 export const BASE_DOUGH_COUNT = 6;
+export const BASE_DOUGH_BALL_WEIGHT_GRAMS = 280;
+export const BASE_TOTAL_DOUGH_WEIGHT_GRAMS = BASE_DOUGH_COUNT * BASE_DOUGH_BALL_WEIGHT_GRAMS;
 
 export type Ingredient = {
   name: string;

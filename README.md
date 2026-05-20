@@ -13,6 +13,7 @@ Moderner Pizza-Teig- und Sauce-Rechner für GitHub Pages. Die App läuft komplet
 ## Features
 
 - Skalierung aller Zutaten auf Basis von 6 Teigen
+- Einstellbares Gewicht pro Teigling, standardmäßig 280 g
 - Kartenlayout für Teig und Sauce
 - Presets fuer 6, 12, 18 und 24 Teige
 - Sauber formatierte Zahlen mit deutschen Trennzeichen
@@ -46,17 +47,18 @@ Moderner Pizza-Teig- und Sauce-Rechner für GitHub Pages. Die App läuft komplet
 
 ## Berechnung
 
-Alle Zutaten basieren auf dem Rezept fuer 6 Teige.
+Alle Zutaten basieren auf dem Rezept für 6 Teige à 280 g.
 
 ```ts
-factor = gewünschteTeige / 6;
+factor = (gewünschteTeige * grammProTeigling) / (6 * 280);
 skalierteMenge = basisMenge * factor;
 ```
 
 Beispiele:
 
-- 12 Teige: Faktor 2
-- 3 Teige: Faktor 0,5
+- 12 Teige à 280 g: Faktor 2
+- 3 Teige à 280 g: Faktor 0,5
+- 6 Teige à 300 g: Faktor 1,07
 
 ## Lokal starten
 
@@ -89,7 +91,7 @@ Die Astro-Konfiguration erkennt GitHub Actions automatisch und setzt den korrekt
 
 ## Rezeptbasis
 
-Teig fuer 6 Teige:
+Teig für 6 Teige à 280 g:
 
 - 1000 g Mehl
 - 25 g feines Meersalz
@@ -97,7 +99,7 @@ Teig fuer 6 Teige:
 - 1 g frische Hefe
 - 0,33 g Trockenhefe als Alternative
 
-Sauce fuer 6 Teige:
+Sauce für 6 Teige à 280 g:
 
 - 1 Knoblauchzehe
 - 1 Zwiebel

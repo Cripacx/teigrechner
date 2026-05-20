@@ -3,18 +3,27 @@ import { computed, onMounted, ref, watch } from 'vue';
 import CountSelector from './CountSelector.vue';
 import RecipeCard from './RecipeCard.vue';
 import ThemeToggle from './ThemeToggle.vue';
-import { BASE_DOUGH_COUNT, recipeSections } from '../data/recipes';
+import {
+  BASE_DOUGH_BALL_WEIGHT_GRAMS,
+  BASE_DOUGH_COUNT,
+  BASE_TOTAL_DOUGH_WEIGHT_GRAMS,
+  recipeSections,
+} from '../data/recipes';
 import { formatAmount, formatFactor } from '../utils/format';
 
 const presets = [6, 12, 18, 24];
+const weightPresets = [240, 260, 280, 300];
 const doughCount = ref(BASE_DOUGH_COUNT);
+const doughBallWeight = ref(BASE_DOUGH_BALL_WEIGHT_GRAMS);
 const isDark = ref(false);
 
-const factor = computed(() => doughCount.value / BASE_DOUGH_COUNT);
+const targetTotalDoughWeight = computed(() => doughCount.value * doughBallWeight.value);
+const factor = computed(() => targetTotalDoughWeight.value / BASE_TOTAL_DOUGH_WEIGHT_GRAMS);
 const factorLabel = computed(() => formatFactor(factor.value));
 const flourAmount = computed(() => formatAmount(1000 * factor.value));
 const waterAmount = computed(() => formatAmount(650 * factor.value));
 const freshYeastAmount = computed(() => formatAmount(1 * factor.value, 2));
+const totalDoughWeight = computed(() => formatAmount(targetTotalDoughWeight.value));
 const basePath = import.meta.env.BASE_URL;
 const logoPath = `${basePath}logo.png`;
 
@@ -67,7 +76,7 @@ watch(isDark, (value) => {
       <section class="grid flex-1 items-center gap-8 py-10 lg:grid-cols-[0.92fr_1.08fr] lg:py-14">
         <div class="space-y-8">
           <div class="max-w-2xl">
-            <p class="text-sm font-bold uppercase tracking-[0.22em] text-red-600 dark:text-red-300">Basis: 6 Teige</p>
+            <p class="text-sm font-bold uppercase tracking-[0.22em] text-red-600 dark:text-red-300">Basis: 6 Teige à 280 g</p>
             <h1 class="mt-5 text-5xl font-black leading-[0.95] text-stone-950 dark:text-white sm:text-6xl lg:text-7xl">
               Pizza perfekt skaliert.
             </h1>
@@ -76,10 +85,14 @@ watch(isDark, (value) => {
             </p>
           </div>
 
-          <div class="grid grid-cols-3 gap-3 sm:max-w-xl">
+          <div class="grid grid-cols-2 gap-3 sm:max-w-xl lg:grid-cols-4">
             <div class="rounded-lg border border-stone-200 bg-white/70 p-4 transition duration-300 dark:border-white/10 dark:bg-white/[0.08]">
               <p class="text-xs font-bold uppercase tracking-[0.14em] text-stone-500 dark:text-stone-400">Faktor</p>
               <p class="mt-2 text-2xl font-black tabular-nums text-stone-950 dark:text-white">{{ factorLabel }}x</p>
+            </div>
+            <div class="rounded-lg border border-stone-200 bg-white/70 p-4 transition duration-300 dark:border-white/10 dark:bg-white/[0.08]">
+              <p class="text-xs font-bold uppercase tracking-[0.14em] text-stone-500 dark:text-stone-400">Teiggewicht</p>
+              <p class="mt-2 text-2xl font-black tabular-nums text-stone-950 dark:text-white">{{ totalDoughWeight }} g</p>
             </div>
             <div class="rounded-lg border border-stone-200 bg-white/70 p-4 transition duration-300 dark:border-white/10 dark:bg-white/[0.08]">
               <p class="text-xs font-bold uppercase tracking-[0.14em] text-stone-500 dark:text-stone-400">Mehl</p>
@@ -92,7 +105,12 @@ watch(isDark, (value) => {
           </div>
         </div>
 
-        <CountSelector v-model="doughCount" :presets="presets" />
+        <CountSelector
+          v-model="doughCount"
+          v-model:dough-ball-weight="doughBallWeight"
+          :presets="presets"
+          :weight-presets="weightPresets"
+        />
       </section>
 
       <section class="grid gap-5 pb-12 lg:grid-cols-2">
@@ -100,7 +118,7 @@ watch(isDark, (value) => {
       </section>
 
       <footer class="pb-7 text-center text-sm font-medium text-stone-500 dark:text-stone-500">
-        <span>{{ waterAmount }} ml Wasser bei {{ doughCount }} Teigen</span>
+        <span>{{ waterAmount }} ml Wasser bei {{ doughCount }} Teigen à {{ doughBallWeight }} g</span>
       </footer>
     </div>
   </main>
