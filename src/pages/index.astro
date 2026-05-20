@@ -4,7 +4,10 @@ import '../styles/global.css';
 
 const title = 'TeigRechner | Pizza-Teig- und Sauce-Rechner';
 const description = 'Moderner Pizza-Teig- und Sauce-Rechner für Astro, Vue 3, TypeScript und Tailwind CSS.';
-const faviconIcoPath = `${import.meta.env.BASE_URL}favicon.ico`;
+const basePath = import.meta.env.BASE_URL.endsWith('/')
+	? import.meta.env.BASE_URL
+	: `${import.meta.env.BASE_URL}/`;
+const faviconIcoPath = `${basePath}favicon.ico`;
 ---
 
 <html lang="de">
